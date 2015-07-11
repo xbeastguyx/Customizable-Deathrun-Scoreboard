@@ -199,7 +199,7 @@ local function Refresh()
 	if table.Count( connecting ) > 0 then
 
 		CreateEmpty( 10 )
-		CreateTeamThing( "Connecting", beastsb.connectincol )
+		CreateTeamThing( "Connecting", beastsb.connectingcol )
 
 		for k, v in pairs( connecting ) do
 			CreateName( v, k )
