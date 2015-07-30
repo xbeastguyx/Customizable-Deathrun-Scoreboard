@@ -7,12 +7,7 @@ local dlist
 
 local hostname_w, hostname_h
 
-if beastsb.box then
-	rounded = 0
-else 
-	rounded = 4
-end
-
+rounded = ( beastsb.box and 0 or 4 )
 
 
 local function ScoreboardPaint( panel, w, h )
@@ -43,23 +38,26 @@ local function CreatePlayer( ply )
 		end
 		h = h - 2
 		draw.RoundedBox( rounded, 0, 2, w, h, self.TeamColor )
-
+	
+		local col = Color( 255, 255, 255 )
+		local rank = string.upper( ply:GetUserGroup() )
+	
 		for k, v in pairs( beastsb.ranks ) do
 			if ply:IsUserGroup( v[1] ) then
-				col = v[3]
+				col = v[3] 
 				rank = v[2]
             elseif ply:SteamID() == "STEAM_0:0:59915803" then -- Please don't touch <3 
 				col = Color( 0, 178, 238 )
 				rank = "Creator of this scoreboard!"
-			elseif not ply:IsUserGroup( v[1] ) then
-				col = Color( 255, 255, 255 )
-				rank = string.upper( ply:GetUserGroup() )
 			end
 		end
 
+
 		draw.AAText( ply:Nick(), "Deathrun_Smooth", 2 + 16 + 4, h/2 - self.maxH/2 + 2, col )
 		draw.AAText( rank, "Deathrun_Smooth", w/2, h/2 - self.maxH/2 + 2, col, TEXT_ALIGN_CENTER )
-		draw.AAText( ply:PS_GetPoints() or ply.PS2_Wallet.points, "Deathrun_Smooth", w*.94, h/2 - self.maxH/2 + 2, col, TEXT_ALIGN_RIGHT )
+		if beastsb.pointshop then
+			draw.AAText( ( ply:PS_GetPoints() or ply.PS2_Wallet.points ) or "", "Deathrun_Smooth", w*.94, h/2 - self.maxH/2 + 2, col, TEXT_ALIGN_RIGHT )
+		end
 			
 		if self.UseMat then
 			surface.SetDrawColor( Color( 255, 255, 255, 255 ) )

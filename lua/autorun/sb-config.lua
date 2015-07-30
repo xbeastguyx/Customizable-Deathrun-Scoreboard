@@ -1,4 +1,12 @@
-beastsb = {} -- DONT TOUCH
+beastsb = {} -- DON'T TOUCH
+beastsb.ranks = {} -- DON'T TOUCH
+
+local function AddRank( Rank, Display, Color )
+    beastsb.ranks[ #beastsb.ranks + 1 ] = { Rank, Display, Color }
+end
+
+
+-- CONFIG STARTS HERE, DO NOT TOUCH ABOVE
 
 beastsb.deathcol = Color( 160, 50, 50, 200 ) -- Color for death on the scoreboard
 beastsb.runnercol = Color( 50, 50, 160, 200 ) -- Color for runners on the scoreboard
@@ -10,11 +18,10 @@ beastsb.main = Color( 255, 255, 255, 0 ) -- BASE COLOR
 beastsb.hostbox = Color( 60, 60, 60, 0 ) -- Color of box behind hostname
 beastsb.hostcol = Color( 255, 255, 255 ) -- Color of the host text
 
--- HOW TO ADD RANKS!
--- FORMAT: { "NAME OF RANK ON SERVER", "TEXT TO DISPLAY ON SERVER FOR RANK", COLOR OF RANK }
--- NOTE: DON'T FORGET TO ADD A COMMA ON TO EACH NEW ENTRY, ALL NEED IT EXCEPT FOR THE LAST RANK
+beastsb.pointshop = false -- Display Pointshop Points?  
 
-beastsb.ranks = {
-{ "user", "User", Color( 255, 255, 255 ) }, 
-{ "owner", "The Owner :D", Color( 0, 255, 238 ) }
-}
+-- HOW TO ADD RANKS!
+-- FORMAT AddRank( "Rank Name (case sensitive)", "Display Name", Color )
+
+
+AddRank( "owner", "THE OWNER", Color( 0, 178, 238 ) ) 
