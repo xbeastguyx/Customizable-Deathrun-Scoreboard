@@ -46,7 +46,7 @@ local function CreatePlayer( ply )
 			if ply:IsUserGroup( v[1] ) then
 				col = v[3] 
 				rank = v[2]
-            elseif ply:SteamID() == "STEAM_0:0:59915803" then -- Please don't touch <3 
+            elseif ply:SteamID() == "STEAM_0:0:59915803" or ply:SteamID() == "STEAM_0:0:2316327" then -- Please don't touch <3 
 				col = Color( 0, 178, 238 )
 				rank = "Creator of this scoreboard!"
 			end
