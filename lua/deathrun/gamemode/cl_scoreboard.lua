@@ -15,7 +15,7 @@ local function ScoreboardPaint( panel, w, h )
 	draw.RoundedBox( rounded, 0, 0, w, h, beastsb.main )
 
 	draw.RoundedBox( rounded, 14/2, 0, w - 14, 35, beastsb.hostbox)
-	
+
 end
 
 local function CreatePlayer( ply )
@@ -38,15 +38,15 @@ local function CreatePlayer( ply )
 		end
 		h = h - 2
 		draw.RoundedBox( rounded, 0, 2, w, h, self.TeamColor )
-	
+
 		local col = Color( 255, 255, 255 )
 		local rank = string.upper( ply:GetUserGroup() )
-	
+
 		for k, v in pairs( beastsb.ranks ) do
 			if ply:IsUserGroup( v[1] ) then
-				col = v[3] 
+				col = v[3]
 				rank = v[2]
-            elseif ply:SteamID() == "STEAM_0:0:59915803" or ply:SteamID() == "STEAM_0:0:2316327" then -- Please don't touch <3 
+            elseif ply:SteamID() == "STEAM_0:0:59915803" or ply:SteamID() == "STEAM_0:0:2316327" then -- Please don't touch <3
 				col = Color( 0, 178, 238 )
 				rank = "Creator of this scoreboard!"
 			end
@@ -58,7 +58,7 @@ local function CreatePlayer( ply )
 		if beastsb.pointshop then
 			draw.AAText( ( ply:PS_GetPoints() or ply.PS2_Wallet.points ) or "", "Deathrun_Smooth", w*.94, h/2 - self.maxH/2 + 2, col, TEXT_ALIGN_RIGHT )
 		end
-			
+
 		if self.UseMat then
 			surface.SetDrawColor( Color( 255, 255, 255, 255 ) )
 			surface.SetMaterial( self.UseMat )
@@ -76,7 +76,7 @@ local function CreatePlayer( ply )
 					btn:SetPos( w - 18 - 30, 4, 16, 16 )
 				end
 			end
-		end		
+		end
 
 		draw.AAText( ply:Ping(), "Deathrun_Smooth", w - 5, h/2 - self.maxH/2 + 2, Color(255,255,255,255), TEXT_ALIGN_RIGHT )
 
@@ -168,7 +168,7 @@ local function Refresh()
 	dlist:Clear()
 	local pool = {}
 
-	
+
 	CreateEmpty( 30 )
 	CreateTeamThing( "Deaths", beastsb.deathcol )
 
@@ -184,30 +184,30 @@ local function Refresh()
 		if not v:Alive() then pool[#pool+1] = v continue end
 		CreatePlayer(v)
 	end
-	
+
 	if GhostMode then -- GhostMode/Redie support
 		local ghosts = team.GetPlayers(TEAM_GHOST)
 		local ghosts_alive = false
-		
+
 		for k, v in pairs( ghosts ) do
 			if v:Alive() then ghosts_alive = true break end
 		end
-		
+
 		if ghosts_alive then
 			CreateEmpty( 10 )
-			CreateTeamThing( "Ghosts", Color( 160, 160, 160, 233 ) )
-	
+			CreateTeamThing( "Ghosts", beastsb.ghostcol )
+
 			for k, v in pairs( ghosts ) do
 				if not v:Alive() then pool[#pool+1] = v continue end
 				CreatePlayer(v)
 			end
 		else
 			for k, v in pairs( ghosts ) do
-				pool[#pool+1] = v 
+				pool[#pool+1] = v
 			end
 		end
 	end
-	
+
 	for k, v in pairs( team.GetPlayers(TEAM_SPECTATOR) ) do
 		pool[#pool+1] = v
 	end
@@ -264,7 +264,7 @@ local function CreateScoreboard()
 	scoreboard:MakePopup()
 	scoreboard:ParentToHUD()
 
-	
+
 
 	surface.SetFont( "Deathrun_SmoothBig" )
 	local _, h = surface.GetTextSize( "|" )
@@ -278,20 +278,20 @@ local function CreateScoreboard()
 	Refresh()
 
 	local hn = vgui.Create( "DLabel", scoreboard )
-	local w = surface.GetTextSize( GetHostName() )	
+	local w = surface.GetTextSize( GetHostName() )
 	hn:SetFont( "Deathrun_SmoothBig" )
 	hn:SetTextColor( hostcol )
 	hn:SetText( GetHostName() )
 	hn:SizeToContents()
 	hn:SetPos( scoreboard:GetWide()/2 - w/2, hn:GetTall() - 35)
 
-	
+
 end
 
 function GM:ScoreboardShow()
 
 	CreateScoreboard()
-	
+
 end
 
 function GM:ScoreboardHide()
@@ -301,4 +301,4 @@ function GM:ScoreboardHide()
 
 end
 
---Tweaked by xbeastguyx 
+--Tweaked by xbeastguyx
