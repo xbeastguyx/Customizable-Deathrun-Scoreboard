@@ -184,7 +184,30 @@ local function Refresh()
 		if not v:Alive() then pool[#pool+1] = v continue end
 		CreatePlayer(v)
 	end
-
+	
+	if GhostMode then -- GhostMode/Redie support
+		local ghosts = team.GetPlayers(TEAM_GHOST)
+		local ghosts_alive = false
+		
+		for k, v in pairs( ghosts ) do
+			if v:Alive() then ghosts_alive = true break end
+		end
+		
+		if ghosts_alive then
+			CreateEmpty( 10 )
+			CreateTeamThing( "Ghosts", Color( 160, 160, 160, 233 ) )
+	
+			for k, v in pairs( ghosts ) do
+				if not v:Alive() then pool[#pool+1] = v continue end
+				CreatePlayer(v)
+			end
+		else
+			for k, v in pairs( ghosts ) do
+				pool[#pool+1] = v 
+			end
+		end
+	end
+	
 	for k, v in pairs( team.GetPlayers(TEAM_SPECTATOR) ) do
 		pool[#pool+1] = v
 	end
